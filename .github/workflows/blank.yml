@@ -63,7 +63,7 @@ jobs:
           pip -V
 
       - run: |
-          pip install pip==${{ matrix.pip_ver }}
+          pip install --user pip==${{ matrix.pip_ver }}
           pip -V
 
       - run: |
