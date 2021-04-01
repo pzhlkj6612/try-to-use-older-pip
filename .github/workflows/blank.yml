@@ -1,0 +1,71 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  workflow_dispatch:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        pip_ver:
+          - 21.0.1
+          - 21.0
+          - 20.3.4
+          - 20.3.3
+          - 20.3.1
+          - 20.3
+          # 20.3b1
+          # document support for 3.9
+          #   https://pip.pypa.io/en/stable/news/#b1-2020-10-31
+          #   https://github.com/pypa/pip/pull/8971
+          - 20.2.4
+          - 20.2.3
+          - 20.2.2
+          - 20.2.1
+          - 20.2
+          - 20.1.1
+          - 20.1
+          - 20.0.2
+          - 20.0.1
+          - 19.3.1  # document support for 3.8
+                    #   https://pip.pypa.io/en/stable/news/#id298
+                    #   https://github.com/pypa/pip/pull/7219
+          - 19.3  # Later than 62dfd7d6fe11bfa0cd1d7376382c8e7b1275e38c
+                  #   Aug 26, 2019
+                  #   https://github.com/python/cpython/commit/62dfd7d6fe11bfa0cd1d7376382c8e7b1275e38c#diff-838d03b823aa8b092fbcc37dc43c35f14ba424a516e975f053a06dc9af45b507R102
+          - 19.2.3
+          - 19.2.2
+          - 19.2.1
+          - 19.2
+          - 19.1.1
+          - 19.1
+          - 19.0.3
+          - 19.0.2
+          - 19.0.1
+          - 19.0
+          - 18.1  # document support for 3.7
+                  #   https://pip.pypa.io/en/stable/news/#id490
+                  #   https://github.com/pypa/pip/pull/5561
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/setup-python@v2
+        with:
+          python-version: "3.7"
+
+      - run: |
+          python --version
+          pip -V
+
+      - run: |
+          pip install pip==${{ matrix.pip_ver }}
+          pip -V
+
+      - run: |
+          python --version
+          pip -V
