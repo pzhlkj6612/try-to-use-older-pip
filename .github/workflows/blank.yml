@@ -77,4 +77,4 @@ jobs:
       - env:
           VSCMD_ARG_TGT_ARCH: 'x86'
         run: |
-          pip install py7zr>=0.9.9,!=0.10.0
+          pip install --only-binary :all: py7zr>=0.9.9,!=0.10.0
