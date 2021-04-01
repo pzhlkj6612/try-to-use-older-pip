@@ -11,6 +11,7 @@ on:
 jobs:
   build:
     strategy:
+      fail-fast: false
       matrix:
         pip_ver:
           - 21.0.1
@@ -69,3 +70,8 @@ jobs:
       - run: |
           python --version
           pip -V
+          
+      - env:
+          VSCMD_ARG_TGT_ARCH: 'x86'
+        run: |
+          pip install py7zr>=0.9.9,!=0.10.0
